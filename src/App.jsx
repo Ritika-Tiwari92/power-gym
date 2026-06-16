@@ -479,6 +479,30 @@ function App() {
   }, [loading]);
 
   useEffect(() => {
+    const faqSchema = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqs.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.a,
+        },
+      })),
+    };
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.id = "faq-schema";
+    script.text = JSON.stringify(faqSchema);
+    document.head.appendChild(script);
+    return () => {
+      const existing = document.getElementById("faq-schema");
+      if (existing) existing.remove();
+    };
+  }, []);
+
+  useEffect(() => {
     if (!lightboxOpen) return;
     const handler = (e) => {
       if (e.key === "Escape") setLightboxOpen(false);
@@ -726,9 +750,10 @@ function App() {
           Why Choose <span className="accent">The Power Gym?</span>
         </h2>
         <p className="about-text">
-          The Power Gym helps students, working professionals, and fitness
-          enthusiasts achieve their goals through expert guidance, modern
-          equipment, and a motivating training environment.
+          The Power Gym in Barhalganj, Gorakhpur helps students, working
+          professionals, and fitness enthusiasts achieve their goals through
+          expert guidance, modern equipment, and a motivating training
+          environment.
         </p>
       </section>
 
@@ -1490,6 +1515,33 @@ function App() {
         </div>
       </section>
 
+      {/* ── LOCAL SEO CONTENT ── */}
+      <section className="seo-content">
+        <div className="section-label">LOCAL FITNESS CENTER</div>
+
+        <h2 className="section-title">
+          Best <span className="accent">Gym in Barhalganj</span>, Gorakhpur
+        </h2>
+
+        <p>
+          The Power Gym is a leading fitness center in Barhalganj, Gorakhpur
+          offering weight loss training, muscle gain programs, strength
+          training, personal training and general fitness coaching.
+        </p>
+
+        <p>
+          With modern gym equipment, experienced trainers and affordable
+          membership plans, we help students, professionals and fitness
+          enthusiasts achieve their fitness goals in a motivating environment.
+        </p>
+
+        <p>
+          If you are searching for a gym in Barhalganj, best gym near me,
+          fitness center in Gorakhpur or personal training in Barhalganj, The
+          Power Gym is your destination for complete fitness transformation.
+        </p>
+      </section>
+
       {/* ── FOOTER ── */}
       <footer className="footer" role="contentinfo">
         <div className="footer-top">
@@ -1581,7 +1633,7 @@ function App() {
         </div>
         <div className="footer-divider" />
         <div className="footer-bottom">
-          <span>© 2026 The Power Gym. All Rights Reserved.</span>
+          <span>© 2026 The Power Gym Barhalganj, Gorakhpur</span>
           <span className="footer-made">
             Barhalganj, Gorakhpur{" "}
             <FaFire
